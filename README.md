@@ -61,7 +61,7 @@ Five numbered sections that alternate between paper and ink:
 | 01 | Work | ink | The projects |
 | 02 | Capabilities | paper | Skills and spoken languages |
 | 03 | Journey | ink | Education and experience |
-| 04 | Contact | paper | A spec of what you are looking for, and a click-to-copy email |
+| 04 | Contact | paper | A spec of what you are looking for, and the LinkedIn link |
 
 **Each fact has exactly one home.** Availability is stated in Contact and nowhere
 else; skills live only in Capabilities; degrees only in Journey. The hero shows
@@ -153,7 +153,8 @@ the same width, so the label never changes size while the characters churn
 | `assets/css/site.css` | Every style, including responsive and reduced-motion rules |
 | `assets/js/site.js` | Your details, project data, reveals, chrome tone, overlay |
 | `assets/favicon.svg` | The L mark |
-| `portal-one.html` | The design reference. Delete before deploying if you like |
+| `CHANGELOG.md` | How the site was built, session by session |
+| `portal-one.html` | The design reference. Git-ignored — kept locally, never published |
 
 ## Contact: LinkedIn, and no personal data in the repo
 
