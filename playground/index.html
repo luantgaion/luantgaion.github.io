@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Playground — Luan T. Gaion</title>
+<meta name="description" content="Experiments by Luan T. Gaion — things built to try an idea rather than to prove a point.">
+<meta name="author" content="Luan T. Gaion">
+<meta name="theme-color" content="#0A0A0A">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Playground — Luan T. Gaion">
+<meta property="og:description" content="Experiments: things built to try an idea rather than to prove a point.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/site.css">
+<script>
+/* Same script as the portfolio, so the theme carries across pages without
+   a flash. localStorage is shared between them. */
+(function(){try{
+  document.documentElement.dataset.theme=localStorage.getItem('theme')||'dark';
+}catch(e){document.documentElement.dataset.theme='dark';}})();
+</script>
+</head>
+<body>
+
+<a class="skip" href="#pg">Skip to content</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+  <symbol id="i-arr" viewBox="0 0 40 16">
+    <path d="M0 8h37M30 1l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  </symbol>
+  <symbol id="i-theme" viewBox="0 0 20 20">
+    <circle cx="10" cy="10" r="7.1" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    <path d="M10 2.9a7.1 7.1 0 0 1 0 14.2Z" fill="currentColor"/>
+  </symbol>
+</defs></svg>
+
+<div class="prog" aria-hidden="true"><i id="progBar"></i></div>
+<div class="cursor" id="cursor" aria-hidden="true"></div>
+
+<header class="chrome">
+  <a class="mark" href="../" aria-label="Loen — Luan T. Gaion, portfolio">LOEN<i></i></a>
+  <nav class="chrome-nav" aria-label="Primary">
+    <a href="../#work">Work</a><a href="../#stack">Stack</a><a href="../#contact">Contact</a>
+    <button class="theme" id="themeBtn" type="button" aria-pressed="false"
+            aria-label="Switch to dark theme">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><use href="#i-theme"/></svg>
+    </button>
+  </nav>
+</header>
+
+<main>
+
+<section class="sec pg" id="pg" data-idx="00" data-track data-io>
+  <div class="bg bg-portal" data-bg="portal" aria-hidden="true"></div>
+  <span class="ghost" aria-hidden="true">&infin;</span>
+
+  <div class="wrap pg-in">
+    <p class="eyebrow r"><span class="dot" aria-hidden="true"></span>Playground</p>
+
+    <h1 class="big">
+      <span class="mask" style="--i:1"><span>Nothing here</span></span>
+      <span class="mask" style="--i:2"><span>yet.</span></span>
+    </h1>
+
+    <p class="pg-note r" style="--i:3">This is where the experiments will go.</p>
+
+    <a class="pg-back r" style="--i:4" href="../">
+      <svg viewBox="0 0 40 16" aria-hidden="true"><use href="#i-arr"/></svg>
+      <span>Back to the portfolio</span>
+    </a>
+
+    <footer class="foot">
+      <p>&copy; <span id="yr"></span> Luan T. Gaion</p>
+    </footer>
+  </div>
+</section>
+
+</main>
+
+<script src="../assets/js/site.js" defer></script>
+</body>
+</html>

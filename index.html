@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Luan T. Gaion — Software Engineer</title>
+<meta name="description" content="Luan T. Gaion — software engineer. Selected work, capabilities and background.">
+<meta name="author" content="Luan T. Gaion">
+<meta name="theme-color" content="#0A0A0A">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Luan T. Gaion — Software Engineer">
+<meta property="og:description" content="Selected work, capabilities and background.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>
+/* Runs before the stylesheet paints, so the page never flashes the wrong
+   theme. Kept inline and tiny on purpose. */
+(function(){try{
+  /* dark is the house theme; only an explicit choice overrides it */
+  document.documentElement.dataset.theme=localStorage.getItem('theme')||'dark';
+}catch(e){document.documentElement.dataset.theme='dark';}})();
+</script>
+</head>
+<body>
+
+<a class="skip" href="#work">Skip to content</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+  <symbol id="i-arr" viewBox="0 0 40 16">
+    <path d="M0 8h37M30 1l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  </symbol>
+  <symbol id="i-diag" viewBox="0 0 20 20">
+    <path d="M4 16 16 4M7 4h9v9" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  </symbol>
+  <symbol id="i-x" viewBox="0 0 16 16">
+    <path d="M2 2l12 12M14 2L2 14" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  </symbol>
+  <symbol id="i-theme" viewBox="0 0 20 20">
+    <circle cx="10" cy="10" r="7.1" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    <path d="M10 2.9a7.1 7.1 0 0 1 0 14.2Z" fill="currentColor"/>
+  </symbol>
+</defs></svg>
+
+<div class="prog" aria-hidden="true"><i id="progBar"></i></div>
+<div class="cursor" id="cursor" aria-hidden="true"></div>
+
+<header class="chrome">
+  <a class="mark" href="#hero" aria-label="Loen — Luan T. Gaion, top">LOEN<i></i></a>
+  <nav class="chrome-nav" aria-label="Primary">
+    <a href="#work">Work</a><a class="pg-link" href="playground/" data-label="Playground">Playground</a><a href="#stack">Stack</a><a href="#contact">Contact</a>
+    <button class="theme" id="themeBtn" type="button" aria-pressed="false"
+            aria-label="Switch to dark theme">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><use href="#i-theme"/></svg>
+    </button>
+  </nav>
+</header>
+
+<nav class="rail" id="rail" aria-label="Sections"></nav>
+
+<main>
+
+<!-- ============ 00 · HERO ============ -->
+<section class="sec hero" id="hero" data-idx="00" data-track data-io>
+  <div class="bg bg-portal" data-bg="portal" aria-hidden="true"></div>
+  <span class="ghost" aria-hidden="true">00</span>
+
+  <div class="wrap hero-in">
+    <p class="eyebrow r"><span class="dot" aria-hidden="true"></span>Luan T. Gaion &mdash; Software Engineer</p>
+
+    <h1 class="title one" id="heroTitle" aria-label="Loen — Luan T. Gaion">
+      <span class="line" data-split>Loen</span>
+    </h1>
+
+    <p class="hero-sub mask" style="--i:6"><span>I like making things I haven&rsquo;t made before, and finding out how they work.</span></p>
+
+    <dl class="stats r" style="--i:8" id="stats"></dl>
+
+    <div class="orbit r" style="--i:7" aria-hidden="true">
+      <span class="ring"></span><span class="ring b"></span><span class="sat"></span>
+    </div>
+
+    <a class="cue" href="#work" aria-label="Scroll to work">
+      <span>Scroll</span><i aria-hidden="true"></i>
+    </a>
+  </div>
+</section>
+
+<!-- ============ 01 · WORK ============ -->
+<section class="sec inv" id="work" data-idx="01" data-track data-io>
+  <div class="bg bg-grid" data-bg="grid" aria-hidden="true"></div>
+  <span class="ghost" aria-hidden="true">01</span>
+
+  <div class="wrap work-grid">
+    <header class="work-head">
+      <p class="eyebrow r">01 &mdash; Selected work</p>
+      <h2 class="sec-title">
+        <span class="mask" style="--i:1"><span>Things</span></span>
+        <span class="mask" style="--i:2"><span>I&rsquo;ve built.</span></span>
+      </h2>
+      <p class="work-note r" style="--i:3">
+        <span id="workCount"></span> projects, newest first.<br>Select one to read more.
+      </p>
+    </header>
+
+    <ul class="index" id="workIndex"></ul>
+  </div>
+</section>
+
+<!-- ============ 02 · CAPABILITIES ============ -->
+<section class="sec" id="stack" data-idx="02" data-track data-io>
+  <div class="bg bg-vortex" data-bg="vortex" aria-hidden="true"></div>
+  <span class="ghost" aria-hidden="true">02</span>
+
+  <div class="wrap">
+    <header class="sec-head">
+      <p class="eyebrow r">02 &mdash; Capabilities</p>
+      <h2 class="sec-title">
+        <span class="mask" style="--i:1"><span>What I work with.</span></span>
+      </h2>
+    </header>
+    <div class="cols r" style="--i:2" id="stackCols"></div>
+  </div>
+</section>
+
+<!-- ============ 03 · JOURNEY ============ -->
+<section class="sec inv" id="journey" data-idx="03" data-track data-io>
+  <span class="ghost" aria-hidden="true">03</span>
+
+  <div class="wrap">
+    <header class="sec-head">
+      <p class="eyebrow r">03 &mdash; Journey</p>
+      <h2 class="sec-title">
+        <span class="mask" style="--i:1"><span>Where I&rsquo;ve been.</span></span>
+      </h2>
+    </header>
+
+    <ol class="time" id="time">
+      <span class="time-line" aria-hidden="true"></span>
+
+      <li class="tl" data-tl>
+        <p class="tl-when">Jul 2026 &mdash; Present</p>
+        <div class="tl-main">
+          <h3>Master of Artificial Intelligence</h3>
+          <p class="tl-org">Western Sydney University &middot; Australia</p>
+        </div>
+        <p class="tl-tag">Postgraduate</p>
+      </li>
+
+      <li class="tl" data-tl>
+        <p class="tl-when">Feb 2023 &mdash; Feb 2024</p>
+        <div class="tl-main">
+          <h3>Digital Operations &amp; Data Analysis</h3>
+          <p class="tl-org">Ortostore &middot; Brazil</p>
+          <ul>
+            <li>Managed financial and inventory data using Excel.</li>
+            <li>Supported the company&rsquo;s digital transformation to e-commerce.</li>
+            <li>Contributed to digital marketing and sales strategies.</li>
+          </ul>
+        </div>
+        <p class="tl-tag">Industry</p>
+      </li>
+
+      <li class="tl" data-tl>
+        <p class="tl-when">2018 &mdash; 2023</p>
+        <div class="tl-main">
+          <h3>Bachelor in Information Systems</h3>
+          <p class="tl-org">FIAP &middot; S&atilde;o Paulo, Brazil</p>
+          <ul>
+            <li>Where the challenge projects above were built.</li>
+          </ul>
+        </div>
+        <p class="tl-tag">Undergraduate</p>
+      </li>
+
+    </ol>
+  </div>
+</section>
+
+<!-- ============ 04 · CONTACT ============ -->
+<section class="sec" id="contact" data-idx="04" data-track data-io>
+  <div class="bg bg-signal" data-bg="signal" aria-hidden="true"></div>
+  <span class="ghost" aria-hidden="true">04</span>
+
+  <div class="wrap contact-in">
+    <p class="eyebrow r">04 &mdash; Contact</p>
+
+    <h2 class="big">
+      <span class="mask" style="--i:1"><span>Ready when</span></span>
+      <span class="mask" style="--i:2"><span>you are.</span></span>
+    </h2>
+
+    <!-- the three things a recruiter actually needs, as a spec -->
+    <dl class="spec r" style="--i:3" id="spec"></dl>
+
+    <!-- the one action of the section, built in site.js -->
+    <div class="reply r" style="--i:4" id="reply"></div>
+
+    <ul class="elsewhere r" style="--i:5" id="elsewhere"></ul>
+
+    <footer class="foot">
+      <p>&copy; <span id="yr"></span> Luan T. Gaion</p>
+      <a class="totop" href="#hero">Back to top <svg viewBox="0 0 40 16" aria-hidden="true"><use href="#i-arr"/></svg></a>
+    </footer>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ PROJECT OVERLAY ============ -->
+<div class="ov" id="ov" role="dialog" aria-modal="true" aria-labelledby="ovTitle" hidden>
+  <div class="ov-bd" data-close></div>
+  <article class="ov-panel">
+    <header class="ov-top">
+      <p class="ov-meta"><span id="ovIndex"></span></p>
+      <button class="ov-close" type="button" data-close>
+        <span>Close</span><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-x"/></svg>
+      </button>
+    </header>
+
+    <div class="ov-scroll" id="ovScroll">
+      <h2 class="ov-title" id="ovTitle"></h2>
+      <p class="ov-sum" id="ovSum"></p>
+      <div id="ovLink"></div>
+      <div class="ov-grid">
+        <div class="ov-prose" id="ovProse"></div>
+        <aside class="ov-side">
+          <section><h3>Year</h3><p id="ovYear"></p></section>
+          <section><h3>Type</h3><p id="ovKind"></p></section>
+          <section><h3>Role</h3><p id="ovRole"></p></section>
+          <section><h3>Built with</h3><ul class="chips" id="ovStack"></ul></section>
+          <section><h3>Highlights</h3><ul class="bullets" id="ovHi"></ul></section>
+        </aside>
+      </div>
+    </div>
+
+    <nav class="ov-nav">
+      <button type="button" id="ovPrev"><span class="d">Previous</span><span class="n"></span></button>
+      <button type="button" id="ovNext"><span class="d">Next</span><span class="n"></span></button>
+    </nav>
+  </article>
+</div>
+
+<script src="assets/js/site.js" defer></script>
+</body>
+</html>

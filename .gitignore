@@ -1,0 +1,10 @@
+# design reference, not part of the site — kept locally, never published
+portal-one.html
+
+# local tooling
+.claude/
+
+# OS noise
+Thumbs.db
+desktop.ini
+.DS_Store
