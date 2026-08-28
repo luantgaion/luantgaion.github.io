@@ -18,10 +18,12 @@ Then open <http://localhost:4321>. Opening `index.html` from disk also works.
 
 ## Name and mark
 
-The site brands as **LOEN**, but the visitor arrives from a CV that says
-**Luan T. Gaion** — so the real name sits in the hero eyebrow, directly above the
-mark, and stays in `<title>` and the OG tags. The chain from CV to portfolio to
-LinkedIn never breaks.
+The site brands as **LOEN**, and so does the browser tab. But the visitor arrives
+from a CV that says **Luan T. Gaion**, so the real name is never more than a
+glance away: it sits in the hero eyebrow directly above the mark, in the footer,
+in the `aria-label` of both, and in the `author` and `description` metadata. The
+chain from CV to portfolio to LinkedIn never breaks — the tab just leads with the
+brand.
 
 To go back to the full name as the headline, edit the `<h1 class="title one">` in
 `index.html` and drop the `one` class (it is what sizes a single short word, currently

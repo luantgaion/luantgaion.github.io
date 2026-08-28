@@ -115,6 +115,11 @@ That removal surfaced a regression from the day before: the Playground link had
 pushed the header 27px past a 320px viewport, shoving the theme toggle off
 screen entirely.
 
+The browser tab now leads with the brand: `Loen — Software Engineer`, and
+`Playground — Loen`. The legal name stays everywhere it does work — the hero
+eyebrow, the footer, both `aria-label`s, and the `author` and `description`
+metadata — but the tab is a six-character space, and the brand earns it.
+
 Put under git. The commit email is a GitHub `noreply` address on purpose —
 commit history is public and permanent, and is one of the more common places a
 developer's real address gets harvested from.
