@@ -222,6 +222,28 @@ Creme de la Web links to <https://www.cremedelaweb.com.br/>, taken from the hype
 embedded in the CV PDF. The other four have no `link` yet, so they show
 "Case study coming soon".
 
+## Adding an experiment
+
+One object in the `EXPERIMENTS` array in `assets/js/site.js`, newest first. It renders
+into the playground index, which shares the row language of the work index.
+
+```js
+{
+  name: 'Naruto JRPG',
+  year: '2026',
+  kind: 'Game',
+  link: ''    // a URL turns the row into a link;
+              // empty renders an inert row marked "In progress"
+}
+```
+
+The builder is guarded like every other, so it does nothing on the portfolio page,
+where `#pgIndex` does not exist.
+
+A row with no `link` is a `<div>`, not an anchor — inert by construction rather than
+a link that goes nowhere. The row layout rules therefore cover `button`, `a` **and**
+`.idle`; a new row type must be added there or it will render without its grid.
+
 ## Accessibility and support
 
 - Keyboard navigable throughout, with a skip link and visible focus rings.

@@ -32,6 +32,19 @@
   ];
 
   /* ================= 3 · PROJECTS ================================== */
+  /* The playground index. Experiments live on their own page, so this array is
+     read only there — the builder no-ops on the portfolio. An entry with no
+     `link` renders inert rather than as a dead link, the same way an unset
+     LinkedIn does in the contact block. */
+  const EXPERIMENTS = [
+    {
+      name: 'Naruto JRPG',
+      year: '2026',
+      kind: 'Game',
+      link: ''    /* a URL turns the row into a link; empty shows 'In progress' */
+    }
+  ];
+
   const PROJECTS = [
     {
       name: 'Creme de la Web',
@@ -182,6 +195,25 @@
       const b = e.target.closest('button[data-i]');
       if (b) open(+b.dataset.i);
     });
+  }
+
+  function buildPlayground() {
+    const host = $('#pgIndex');
+    if (!host) return;
+    host.innerHTML = EXPERIMENTS.map((x, i) => {
+      const meta =
+        `<span class="i-num">${pad(i + 1)}</span>` +
+        `<span class="i-main"><span class="i-name">${esc(x.name)}</span>` +
+        `<span class="i-kind">${esc(x.year)} &middot; ${esc(x.kind)}</span></span>`;
+      const body = x.link
+        ? `<a href="${esc(x.link)}" aria-label="${esc(x.name)}, open">${meta}` +
+          `<span class="i-go"><svg viewBox="0 0 40 16"><use href="#i-arr"/></svg></span></a>`
+        : `<div class="idle">${meta}<span class="i-soon">In progress</span></div>`;
+      return `<li class="iw" style="--i:${i + 1}">${body}</li>`;
+    }).join('');
+
+    const c = $('#pgCount');
+    if (c) c.textContent = pad(EXPERIMENTS.length);
   }
 
   function buildContact() {
@@ -728,7 +760,7 @@
   }
 
   /* ================= 11 · BOOT ===================================== */
-  buildStats(); buildStack(); buildWork(); buildContact(); buildRail(); buildBackdrops();
+  buildStats(); buildStack(); buildWork(); buildPlayground(); buildContact(); buildRail(); buildBackdrops();
   splitTitle(); observe(); counters(); cursor(); wire(); initTheme(); scramble();
 
   const y = new Date().getFullYear();

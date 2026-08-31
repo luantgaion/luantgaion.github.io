@@ -123,3 +123,17 @@ metadata — but the tab is a six-character space, and the brand earns it.
 Put under git. The commit email is a GitHub `noreply` address on purpose —
 commit history is public and permanent, and is one of the more common places a
 developer's real address gets harvested from.
+
+## 2026-08-31 — The playground stops being empty
+
+First entry in the playground index: **Naruto JRPG**, with no link yet.
+
+The row language is the work index reused rather than reinvented, which meant
+widening those rules from `button` to `button`, `a` and `.idle`. Two of those
+selectors were briefly wrong in a way CSS does not complain about:
+`.iw button,.iw a::before` reads as *`.iw button` or `.iw a::before`*, so the
+hover fill silently stopped applying to every existing project row.
+
+An entry with no link renders as an inert `<div>` with a dashed "In progress"
+chip, not an anchor pointing nowhere — the same choice the contact block makes
+for an unset LinkedIn.
