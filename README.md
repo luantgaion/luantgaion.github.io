@@ -231,11 +231,19 @@ into the playground index, which shares the row language of the work index.
 {
   name: 'Naruto Fangame',
   year: '2026',
-  kind: 'Game',
-  link: ''    // a URL turns the row into a link;
-              // empty renders an inert row marked "In progress"
+  kind: 'Turn-based JRPG · Battle demo',
+  stage: 'Alpha',   // optional chip on the row; drop it when the thing is done
+  link: 'https://luantgaion.github.io/nindo/'
+                    // a URL turns the row into a link opening in a new tab;
+                    // empty renders an inert row marked "In progress"
 }
 ```
+
+An experiment says how finished it is in three places, at three levels of detail:
+the **stage chip** reads at a glance, the `kind` line names what actually exists,
+and the destination speaks for itself. The chip is solid-bordered where the
+"In progress" placeholder is dashed — one labels something you can open, the
+other something you cannot.
 
 The builder is guarded like every other, so it does nothing on the portfolio page,
 where `#pgIndex` does not exist.

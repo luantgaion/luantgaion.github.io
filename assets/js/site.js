@@ -40,8 +40,9 @@
     {
       name: 'Naruto Fangame',
       year: '2026',
-      kind: 'Game',
-      link: ''    /* a URL turns the row into a link; empty shows 'In progress' */
+      kind: 'Turn-based JRPG · Battle demo',
+      stage: 'Alpha',   /* a chip on the row; omit it once the thing is finished */
+      link: 'https://luantgaion.github.io/nindo/'
     }
   ];
 
@@ -205,8 +206,13 @@
         `<span class="i-num">${pad(i + 1)}</span>` +
         `<span class="i-main"><span class="i-name">${esc(x.name)}</span>` +
         `<span class="i-kind">${esc(x.year)} &middot; ${esc(x.kind)}</span></span>`;
+      /* the stage chip sits between the title and the arrow, so how finished a
+         thing is reads at a glance rather than only in the small print */
+      const tag = x.stage ? `<span class="i-tag">${esc(x.stage)}</span>` : '';
       const body = x.link
-        ? `<a href="${esc(x.link)}" aria-label="${esc(x.name)}, open">${meta}` +
+        ? `<a class="${x.stage ? 'has-tag' : ''}" href="${esc(x.link)}" ` +
+          `aria-label="${esc(x.name)}${x.stage ? ', ' + esc(x.stage) : ''}, opens in a new tab" ` +
+          `target="_blank" rel="noopener noreferrer">${meta}${tag}` +
           `<span class="i-go"><svg viewBox="0 0 40 16"><use href="#i-arr"/></svg></span></a>`
         : `<div class="idle">${meta}<span class="i-soon">In progress</span></div>`;
       return `<li class="iw" style="--i:${i + 1}">${body}</li>`;

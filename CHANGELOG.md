@@ -137,3 +137,22 @@ hover fill silently stopped applying to every existing project row.
 An entry with no link renders as an inert `<div>` with a dashed "In progress"
 chip, not an anchor pointing nowhere — the same choice the contact block makes
 for an unset LinkedIn.
+
+## 2026-09-03 — The first experiment is playable
+
+The playground entry now points at the game: a turn-based JRPG on raw Canvas 2D,
+deployed at `luantgaion.github.io/nindo/`.
+
+Saying it is an alpha mattered more than linking it. An unlabelled link promises
+a finished thing and then does not deliver one, which costs more credibility than
+the link earns. So the row carries a solid-bordered **Alpha** chip, and the kind
+line says *Battle demo* rather than implying a whole game.
+
+That is a deliberate contrast with the dashed "In progress" chip: dashed means
+there is nothing to open, solid means there is, and it is early.
+
+Also purged the contributor that would not go away. Rewriting the commits had
+made them unreachable but not gone — GitHub still served `c4a1f91` with its old
+co-author trailer, which is what the sidebar was counting. Deleting and
+recreating the repository was the only thing that actually removed them. The
+five commits were pushed back with identical SHAs, so nothing was lost.
