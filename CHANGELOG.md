@@ -126,7 +126,7 @@ developer's real address gets harvested from.
 
 ## 2026-08-31 — The playground stops being empty
 
-First entry in the playground index: **Naruto JRPG**, with no link yet.
+First entry in the playground index: **Naruto Fangame**, with no link yet.
 
 The row language is the work index reused rather than reinvented, which meant
 widening those rules from `button` to `button`, `a` and `.idle`. Two of those

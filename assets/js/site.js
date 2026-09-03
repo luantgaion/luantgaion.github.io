@@ -38,7 +38,7 @@
      LinkedIn does in the contact block. */
   const EXPERIMENTS = [
     {
-      name: 'Naruto JRPG',
+      name: 'Naruto Fangame',
       year: '2026',
       kind: 'Game',
       link: ''    /* a URL turns the row into a link; empty shows 'In progress' */

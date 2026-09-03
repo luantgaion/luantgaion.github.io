@@ -229,7 +229,7 @@ into the playground index, which shares the row language of the work index.
 
 ```js
 {
-  name: 'Naruto JRPG',
+  name: 'Naruto Fangame',
   year: '2026',
   kind: 'Game',
   link: ''    // a URL turns the row into a link;
