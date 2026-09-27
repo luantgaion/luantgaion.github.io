@@ -633,7 +633,15 @@
        construction, at any speed. The path still collapses when the pointer
        stops, so the tail retracts into the dot rather than hanging there. */
     const STEP = 8, path = [];
-    let speed = 0, px = cx, py = cy, primed = false;
+    let px = cx, py = cy, primed = false;
+    /* Confirmed-still gate, not instantaneous speed. Speed alone cannot tell
+       a brief pause at a turn's cusp apart from the pointer actually
+       stopping — real hand movement decelerates through both the same way.
+       Only shrink once STILL_FRAMES straight frames read as still; a slow
+       reversal never holds that long, so the ribbon never compresses
+       mid-gesture, however slowly it bends through the corner. */
+    const STILL_EPS = 0.6, STILL_FRAMES = 10, DECAY = 2;
+    let still = 0, speed = STEP / 0.85;
     /* ponytail: the wrapper is full-screen, so the goo rasterises the whole
        viewport each frame. Fine on anything current; if it ever costs frames,
        shrink the wrapper to a box around the ribbon instead of inset:0. */
@@ -654,15 +662,17 @@
       path.unshift({ x: cx, y: cy });
       if (path.length > 240) path.length = 240;
 
-      /* Spacing follows speed. Without this the ribbon hangs behind a stopped
-         pointer: once it stops, the points being pushed in are identical, so
-         they add no distance and the walk keeps reaching back to old, far-away
-         ones until they age out of the buffer — seconds of it. Tying the step
-         to speed means a still pointer has a step of zero, every dot lands on
-         the cursor, and the ribbon gathers into the dot at once. */
+      /* Without this the ribbon hangs behind a stopped pointer: once it
+         stops, the points being pushed in are identical, so they add no
+         distance and the walk keeps reaching back to old, far-away ones
+         until they age out of the buffer — seconds of it. Shrinking only
+         once stillness is confirmed gathers the ribbon into the dot at
+         once, without ever mistaking a slow turn for a stop. */
       const moved = Math.hypot(cx - px, cy - py);
       px = cx; py = cy;
-      speed += (moved - speed) * 0.4;   /* 0.4 retracts in ~0.25s; 0.2 took 0.5s */
+      if (moved < STILL_EPS) still++; else still = 0;
+      if (still >= STILL_FRAMES) speed = Math.max(0, speed - DECAY);
+      else speed = STEP / 0.85;
       const step = Math.min(STEP, speed * 0.85);
 
       let seg = 0, walked = 0;

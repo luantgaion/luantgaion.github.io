@@ -116,12 +116,13 @@ would make the faint ones vanish outright rather than fade. The taper is size
 alone, and it tapers *away* from the pointer — widening away from it starves
 the near end until the ribbon detaches from the cursor.
 
-Its length follows pointer speed, which is what makes it retract. Without that
-coupling a stopped pointer keeps pushing identical points into the path — they
-add no distance, so the walk keeps reaching back to old far-away ones and the
-ribbon hangs behind the cursor for seconds until they age out of the buffer.
-Tied to speed, a still pointer has a step of zero and the ribbon gathers into
-the dot in about a quarter second.
+Its length shrinks only once stillness is *confirmed* — ten straight frames
+under a tiny movement threshold — rather than reacting to instantaneous speed.
+Speed alone cannot tell a brief pause at a sharp turn's cusp apart from the
+pointer actually stopping: real hand movement decelerates through both the
+same way. Gating on duration means a slow reversal, however long it lingers at
+the corner, never compresses the ribbon — only an actual stop does, and once
+confirmed it gathers into the dot within a few frames.
 
 The dot's eased position starts at the viewport centre, not wherever the
 pointer first appears. The first `pointermove` snaps it straight to the real

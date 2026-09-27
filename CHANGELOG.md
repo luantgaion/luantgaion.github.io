@@ -203,3 +203,34 @@ Verified with the same offline simulation as the retraction fix, since the
 preview pane's `requestAnimationFrame` cannot be trusted here: a pointer
 entering at (40, 40) and never moving again produced a 200px phantom ribbon
 before the fix, and 0px after.
+
+## 2026-09-28 — The ribbon mistook a paused turn for a stop
+
+Every direction change knotted the ribbon at the corner. Cause: the retraction
+fix from the day before shrank the ribbon based on the smoothed cursor's
+*instantaneous speed*, and a real hand decelerates through a sharp reversal
+almost to a stop before picking back up — indistinguishable, frame to frame,
+from actually stopping. At the cusp, speed (and therefore dot spacing) collapsed
+toward zero, and all 26 dots piled up within a few pixels of the corner. The
+goo filter rendered that pile as a solid blob sitting on the turn.
+
+Confirmed with an offline simulation of a horizontal-then-vertical reversal
+with a realistic deceleration into the corner: minimum dot spacing fell to
+1.16px (from a normal 8px) — a fixed evidence trail's worth of pixels, not a
+guess.
+
+Speed cannot be repaired by tuning its decay rate: a symmetric or asymmetric
+EMA, or a linear peak-hold, all trade one failure for the other, because the
+cusp's brief slowdown and a real stop's sustained one look identical for as
+long as they overlap in duration. The two are distinguished only by *how long*
+the slowdown lasts, which speed alone does not encode.
+
+Fixed by gating on confirmed stillness instead: count consecutive frames under
+a small movement threshold, and only begin shrinking once that count reaches
+ten in a row. A slow, deliberate reversal — simulated holding the cursor still
+at the corner for 14 frames, nearly 1.5x the old clumping threshold — never
+reaches ten, so the ribbon never compresses mid-gesture. A genuine stop reaches
+it easily and collapses within a handful of frames after. The one cost: full
+retraction after a real stop now takes roughly twice as long as the previous
+fix's quarter second, since confirmation adds its own delay before the shrink
+even starts.
