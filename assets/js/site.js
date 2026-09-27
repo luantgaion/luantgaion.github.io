@@ -583,6 +583,25 @@
        flips to the section's background tone to stay readable on it. */
     let magnet = null;
 
+    /* A chain of dots, each easing toward the one ahead of it. Uniform easing
+       is what makes it read as a tail: every node lags by the same fraction,
+       so the chain stretches through fast moves and gathers back up when the
+       pointer stops. One wrapper holds them, so tone and visibility are one
+       element's problem rather than fourteen. */
+    const TRAIL = 14;
+    const wrap = document.createElement('div');
+    wrap.id = 'trail';
+    wrap.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(wrap);
+    const tail = Array.from({ length: TRAIL }, (_, i) => {
+      const el = document.createElement('i');
+      const s = 9 - i * 0.55;
+      el.style.width = el.style.height = s.toFixed(2) + 'px';
+      el.style.opacity = ((1 - i / TRAIL) * 0.45).toFixed(3);
+      wrap.appendChild(el);
+      return { el, x: cx, y: cy };
+    });
+
     const loop = () => {
       if (magnet) {
         const r = magnet.getBoundingClientRect();
@@ -596,6 +615,12 @@
         cy += (y - cy) * 0.2;
       }
       dot.style.transform = `translate3d(${cx}px,${cy}px,0) translate(-50%,-50%)`;
+      for (let i = 0; i < TRAIL; i++) {
+        const n = tail[i], lead = i ? tail[i - 1] : { x: cx, y: cy };
+        n.x += (lead.x - n.x) * 0.34;
+        n.y += (lead.y - n.y) * 0.34;
+        n.el.style.transform = `translate3d(${n.x}px,${n.y}px,0) translate(-50%,-50%)`;
+      }
       const t = toneAt(cy);
       if (t !== tone) { tone = t; root.dataset.cur = t; }
       raf = requestAnimationFrame(loop);
@@ -604,6 +629,7 @@
     addEventListener('pointermove', e => {
       x = e.clientX; y = e.clientY;
       dot.classList.add('show');
+      wrap.classList.add('show');
       if (!raf) raf = requestAnimationFrame(loop);
     }, { passive: true });
 
@@ -615,6 +641,7 @@
         if (magnet) magnet.classList.add('magnet');
         else { dot.style.width = ''; dot.style.height = ''; }
         dot.classList.toggle('merged', !!magnet);
+        root.dataset.trail = magnet ? 'off' : 'on';
         /* the playground gets a squared pill, so the difference is legible
            at a glance and not only while the letters are churning */
         dot.classList.toggle('merged-pg', !!(magnet && magnet.classList.contains('pg-link')));

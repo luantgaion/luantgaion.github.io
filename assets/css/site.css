@@ -185,10 +185,10 @@ li{ list-style:none }
 /* ---------- fixed chrome ---------------------------------------------
    Two solid tones, so swapping colour is identical to a difference blend
    and does not break fixed-position compositing.                      */
-.chrome,.rail,.prog,.cursor{ color:var(--sec-fg) }
+.chrome,.rail,.prog,.cursor,#trail{ color:var(--sec-fg) }
 html[data-top="ink"] .chrome,html[data-top="ink"] .prog{ color:var(--inv-fg) }
 html[data-mid="ink"] .rail{ color:var(--inv-fg) }
-html[data-cur="ink"] .cursor{ color:var(--inv-fg) }
+html[data-cur="ink"] .cursor,html[data-cur="ink"] #trail{ color:var(--inv-fg) }
 .chrome,.rail{ transition:color .4s var(--ease) }
 
 .prog{ position:fixed; inset:0 0 auto 0; height:2px; z-index:120; pointer-events:none }
@@ -228,6 +228,16 @@ html[data-theme="dark"] .theme{ rotate:180deg }
            transition:width .5s var(--ease) }
 .rail a:hover,.rail a:focus-visible,.rail a.on{ opacity:1 }
 .rail a.on i{ width:30px }
+
+/* Cursor trail. One layer under the dot. Each node carries its own size and
+   opacity, set once at build, so the loop only ever writes a transform. */
+#trail{ position:fixed; inset:0; z-index:199; pointer-events:none;
+        opacity:0; transition:opacity .3s ease }
+#trail.show{ opacity:1 }
+/* merged into a header control the pill is the feedback; a tail is noise */
+html[data-trail="off"] #trail{ opacity:0 }
+#trail i{ position:absolute; top:0; left:0; border-radius:50%;
+          background:currentColor; will-change:transform }
 
 .cursor{ position:fixed; top:0; left:0; width:12px; height:12px; border-radius:50%;
          background:currentColor; z-index:200; pointer-events:none; opacity:0;

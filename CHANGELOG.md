@@ -156,3 +156,21 @@ made them unreachable but not gone — GitHub still served `c4a1f91` with its ol
 co-author trailer, which is what the sidebar was counting. Deleting and
 recreating the repository was the only thing that actually removed them. The
 five commits were pushed back with identical SHAs, so nothing was lost.
+
+## 2026-09-27 — A tail on the cursor
+
+Fourteen dots chained behind the pointer, each easing toward the one ahead by
+the same fraction. Uniform easing is the whole trick: vary it per node and the
+chain reads as a queue of objects, keep it uniform and it reads as one tail
+stretching and gathering.
+
+It reuses what the cursor already had rather than building a second system —
+the same rAF loop, and the same two rules that flip the cursor's tone per
+section, so it inverts in both themes without a line of new colour logic. Size
+and opacity are written once at build, so the loop only ever writes transforms.
+
+The reference for this was meant to be the KIKK 2016 site. That site is gone —
+the URL now redirects — and the trail I photographed while investigating turned
+out to be the browser pane drawing its own synthetic cursor, not the page. No
+canvas, no SVG, nothing in the bundle. Worth recording because the screenshot
+was convincing and the DOM was the only thing that disproved it.
