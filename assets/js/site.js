@@ -633,6 +633,7 @@
        construction, at any speed. The path still collapses when the pointer
        stops, so the tail retracts into the dot rather than hanging there. */
     const STEP = 8, path = [];
+    let speed = 0, px = cx, py = cy;
     /* ponytail: the wrapper is full-screen, so the goo rasterises the whole
        viewport each frame. Fine on anything current; if it ever costs frames,
        shrink the wrapper to a box around the ribbon instead of inset:0. */
@@ -651,10 +652,22 @@
       }
       dot.style.transform = `translate3d(${cx}px,${cy}px,0) translate(-50%,-50%)`;
       path.unshift({ x: cx, y: cy });
-      if (path.length > TRAIL * STEP) path.length = TRAIL * STEP;
+      if (path.length > 240) path.length = 240;
+
+      /* Spacing follows speed. Without this the ribbon hangs behind a stopped
+         pointer: once it stops, the points being pushed in are identical, so
+         they add no distance and the walk keeps reaching back to old, far-away
+         ones until they age out of the buffer — seconds of it. Tying the step
+         to speed means a still pointer has a step of zero, every dot lands on
+         the cursor, and the ribbon gathers into the dot at once. */
+      const moved = Math.hypot(cx - px, cy - py);
+      px = cx; py = cy;
+      speed += (moved - speed) * 0.4;   /* 0.4 retracts in ~0.25s; 0.2 took 0.5s */
+      const step = Math.min(STEP, speed * 0.85);
+
       let seg = 0, walked = 0;
       for (let i = 0; i < TRAIL; i++) {
-        const want = i * STEP;
+        const want = i * step;
         /* walk forward through the path until this dot's distance is covered */
         while (seg < path.length - 1) {
           const d = Math.hypot(path[seg + 1].x - path[seg].x, path[seg + 1].y - path[seg].y);

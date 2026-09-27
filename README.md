@@ -116,6 +116,13 @@ would make the faint ones vanish outright rather than fade. The taper is size
 alone, and it tapers *away* from the pointer — widening away from it starves
 the near end until the ribbon detaches from the cursor.
 
+Its length follows pointer speed, which is what makes it retract. Without that
+coupling a stopped pointer keeps pushing identical points into the path — they
+add no distance, so the walk keeps reaching back to old far-away ones and the
+ribbon hangs behind the cursor for seconds until they age out of the buffer.
+Tied to speed, a still pointer has a step of zero and the ribbon gathers into
+the dot in about a quarter second.
+
 It joins the same rule that flips the cursor's tone per section, so it inverts
 in both themes for free, and it hides while the cursor is merged into a header
 control, where the pill is already the feedback.
