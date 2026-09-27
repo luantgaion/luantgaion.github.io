@@ -123,6 +123,12 @@ ribbon hangs behind the cursor for seconds until they age out of the buffer.
 Tied to speed, a still pointer has a step of zero and the ribbon gathers into
 the dot in about a quarter second.
 
+The dot's eased position starts at the viewport centre, not wherever the
+pointer first appears. The first `pointermove` snaps it straight to the real
+position instead of letting it ease there over several frames — unsnapped, that
+catch-up writes a fake stretch of path from the centre of the page to wherever
+the cursor entered, which reads as a stray ribbon on the very first move.
+
 It joins the same rule that flips the cursor's tone per section, so it inverts
 in both themes for free, and it hides while the cursor is merged into a header
 control, where the pill is already the feedback.

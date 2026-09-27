@@ -633,7 +633,7 @@
        construction, at any speed. The path still collapses when the pointer
        stops, so the tail retracts into the dot rather than hanging there. */
     const STEP = 8, path = [];
-    let speed = 0, px = cx, py = cy;
+    let speed = 0, px = cx, py = cy, primed = false;
     /* ponytail: the wrapper is full-screen, so the goo rasterises the whole
        viewport each frame. Fine on anything current; if it ever costs frames,
        shrink the wrapper to a box around the ribbon instead of inset:0. */
@@ -687,6 +687,12 @@
 
     addEventListener('pointermove', e => {
       x = e.clientX; y = e.clientY;
+      /* cx/cy start at the viewport centre, not wherever the pointer actually
+         first appears. Without this, the first move eases the dot 20% a frame
+         from that fake centre toward the real position, and every frame of
+         that catch-up gets written into the ribbon's path — a phantom trail
+         shooting from the centre of the page to wherever the cursor entered. */
+      if (!primed) { primed = true; cx = px = x; cy = py = y; }
       dot.classList.add('show');
       wrap.classList.add('show');
       if (!raf) raf = requestAnimationFrame(loop);

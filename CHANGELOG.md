@@ -185,3 +185,21 @@ the URL redirects now — and the trail photographed while investigating turned
 out to be the browser pane drawing its own synthetic cursor, not the page: no
 canvas, no SVG, nothing in the bundle. Worth recording because the screenshot
 was convincing and the DOM was the only thing that disproved it.
+
+## 2026-09-27 — A phantom stretch on the first move
+
+The ribbon's eased position (`cx, cy`) starts at the viewport centre, because
+that is the only value available before any pointer event has fired. The first
+real `pointermove` can land anywhere, and unsnapped, the dot eased 20% of the
+way toward it every frame — each frame of that catch-up got written into the
+ribbon's path, drawing a stretch from the centre of the page to wherever the
+cursor entered. Direction and distance depended on where the mouse happened to
+enter, so it read as a random glitch rather than a deterministic bug.
+
+Fixed by snapping `cx, cy` straight to the real position on the first
+`pointermove` instead of letting the loop ease there.
+
+Verified with the same offline simulation as the retraction fix, since the
+preview pane's `requestAnimationFrame` cannot be trusted here: a pointer
+entering at (40, 40) and never moving again produced a 200px phantom ribbon
+before the fix, and 0px after.
