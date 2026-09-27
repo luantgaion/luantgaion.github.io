@@ -588,19 +588,54 @@
        so the chain stretches through fast moves and gathers back up when the
        pointer stops. One wrapper holds them, so tone and visibility are one
        element's problem rather than fourteen. */
-    const TRAIL = 14;
+    const TRAIL = 26;
+
+    /* The goo: blur the whole chain, then push alpha through a hard threshold.
+       Blurred edges that overlap clear the threshold together and resolve as
+       one shape, so the dots melt into a ribbon instead of reading as beads.
+       It thresholds ALPHA, not colour, so it works over any background — and
+       it is why every dot must share one opacity. Fade them individually and
+       the faint ones fall under the threshold and vanish outright; the taper
+       has to come from size alone. */
+    const defs = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    defs.setAttribute('width', '0'); defs.setAttribute('height', '0');
+    defs.setAttribute('aria-hidden', 'true');
+    defs.style.position = 'absolute';
+    defs.innerHTML =
+      '<defs><filter id="goo" x="-50%" y="-50%" width="200%" height="200%">' +
+      '<feGaussianBlur in="SourceGraphic" stdDeviation="5" result="b"/>' +
+      '<feColorMatrix in="b" type="matrix" values="' +
+      '1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -9"/>' +
+      '</filter></defs>';
+    document.body.appendChild(defs);
+
     const wrap = document.createElement('div');
     wrap.id = 'trail';
     wrap.setAttribute('aria-hidden', 'true');
     document.body.appendChild(wrap);
     const tail = Array.from({ length: TRAIL }, (_, i) => {
       const el = document.createElement('i');
-      const s = 9 - i * 0.55;
+      /* Size alone carries the taper, for the reason above, and it tapers AWAY
+         from the pointer. Widening away from it — which is what the reference
+         appeared to do — starves the near end: a 5px head falls under the goo
+         threshold and the ribbon detaches from the cursor entirely. */
+      const s = 16 - i * 0.5;
       el.style.width = el.style.height = s.toFixed(2) + 'px';
-      el.style.opacity = ((1 - i / TRAIL) * 0.45).toFixed(3);
       wrap.appendChild(el);
-      return { el, x: cx, y: cy };
+      return el;
     });
+
+    /* Spacing has to be even for the goo to hold, and chaining each dot to the
+       one ahead does not give that: in a chain the gap is proportional to
+       pointer speed, so a fast flick pulls the beads apart and the ribbon
+       snaps back into dots. Instead keep the recent path and walk back along
+       it, dropping a dot every STEP pixels — spacing is then constant by
+       construction, at any speed. The path still collapses when the pointer
+       stops, so the tail retracts into the dot rather than hanging there. */
+    const STEP = 8, path = [];
+    /* ponytail: the wrapper is full-screen, so the goo rasterises the whole
+       viewport each frame. Fine on anything current; if it ever costs frames,
+       shrink the wrapper to a box around the ribbon instead of inset:0. */
 
     const loop = () => {
       if (magnet) {
@@ -615,11 +650,22 @@
         cy += (y - cy) * 0.2;
       }
       dot.style.transform = `translate3d(${cx}px,${cy}px,0) translate(-50%,-50%)`;
+      path.unshift({ x: cx, y: cy });
+      if (path.length > TRAIL * STEP) path.length = TRAIL * STEP;
+      let seg = 0, walked = 0;
       for (let i = 0; i < TRAIL; i++) {
-        const n = tail[i], lead = i ? tail[i - 1] : { x: cx, y: cy };
-        n.x += (lead.x - n.x) * 0.34;
-        n.y += (lead.y - n.y) * 0.34;
-        n.el.style.transform = `translate3d(${n.x}px,${n.y}px,0) translate(-50%,-50%)`;
+        const want = i * STEP;
+        /* walk forward through the path until this dot's distance is covered */
+        while (seg < path.length - 1) {
+          const d = Math.hypot(path[seg + 1].x - path[seg].x, path[seg + 1].y - path[seg].y);
+          if (walked + d >= want) break;
+          walked += d; seg++;
+        }
+        const a = path[seg], b = path[Math.min(seg + 1, path.length - 1)];
+        const d = Math.hypot(b.x - a.x, b.y - a.y);
+        const t = d > 0 ? Math.min((want - walked) / d, 1) : 0;
+        tail[i].style.transform =
+          `translate3d(${a.x + (b.x - a.x) * t}px,${a.y + (b.y - a.y) * t}px,0) translate(-50%,-50%)`;
       }
       const t = toneAt(cy);
       if (t !== tone) { tone = t; root.dataset.cur = t; }

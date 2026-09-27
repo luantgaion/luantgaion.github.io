@@ -159,18 +159,29 @@ five commits were pushed back with identical SHAs, so nothing was lost.
 
 ## 2026-09-27 — A tail on the cursor
 
-Fourteen dots chained behind the pointer, each easing toward the one ahead by
-the same fraction. Uniform easing is the whole trick: vary it per node and the
-chain reads as a queue of objects, keep it uniform and it reads as one tail
-stretching and gathering.
+A ribbon of 26 circles behind the pointer, melted together by an SVG goo
+filter — blur, then a hard alpha threshold, so overlapping blurs resolve as one
+shape.
 
-It reuses what the cursor already had rather than building a second system —
-the same rAF loop, and the same two rules that flip the cursor's tone per
-section, so it inverts in both themes without a line of new colour logic. Size
-and opacity are written once at build, so the loop only ever writes transforms.
+Two findings, both arrived at by watching it break:
+
+**Chaining each dot to the one ahead does not work.** In a chain the gap between
+nodes is proportional to pointer speed, so any quick flick pulls the ribbon
+apart into beads. Placing them at even distances along the recent path instead
+makes spacing constant by construction, at any speed.
+
+**The taper cannot run outward.** The reference appeared to widen away from the
+cursor, so that was tried: a 5px head falls under the goo's alpha threshold and
+the ribbon detaches from the dot entirely. It tapers away from the pointer
+instead. Same reason every circle shares one opacity — fading them individually
+deletes the faint ones rather than fading them.
+
+Reuses the cursor's existing rAF loop and its two tone rules, so it inverts per
+section in both themes with no new colour logic, and inherits the guards that
+already disable the cursor under reduced motion and on touch.
 
 The reference for this was meant to be the KIKK 2016 site. That site is gone —
-the URL now redirects — and the trail I photographed while investigating turned
-out to be the browser pane drawing its own synthetic cursor, not the page. No
+the URL redirects now — and the trail photographed while investigating turned
+out to be the browser pane drawing its own synthetic cursor, not the page: no
 canvas, no SVG, nothing in the bundle. Worth recording because the screenshot
 was convincing and the DOM was the only thing that disproved it.

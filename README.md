@@ -104,12 +104,21 @@ up**; giant outlined section numerals parallax behind everything; the Work title
 **pins** while projects scroll past it; the timeline **spine draws
 itself**; and the cursor flips tone against whatever it crosses.
 
-Behind the dot trails a chain of 14 smaller ones, each easing toward the one
-ahead of it by the same fraction — which is what makes it read as a tail rather
-than a queue: the chain stretches through fast moves and gathers back up when
-the pointer stops. It joins the same rule that flips the cursor's tone per
-section, so it inverts for free, and it hides while the cursor is merged into a
-header control, where the pill is already the feedback.
+Behind the dot trails a **ribbon**: 26 circles blurred together by an SVG goo
+filter, which thresholds alpha so overlapping blurs resolve as one shape rather
+than a string of beads.
+
+Two things make it hold together. The circles are placed at even distances
+**along the recent pointer path**, not chained one to the next — in a chain the
+gap grows with pointer speed, so a fast flick pulls the ribbon apart. And they
+all share one opacity: the filter thresholds alpha, so fading them individually
+would make the faint ones vanish outright rather than fade. The taper is size
+alone, and it tapers *away* from the pointer — widening away from it starves
+the near end until the ribbon detaches from the cursor.
+
+It joins the same rule that flips the cursor's tone per section, so it inverts
+in both themes for free, and it hides while the cursor is merged into a header
+control, where the pill is already the feedback.
 
 Over a header control the cursor does something different: instead of enlarging,
 it **merges into the control** — becoming a filled pill behind it. It drops below
